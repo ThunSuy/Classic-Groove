@@ -112,6 +112,36 @@ switch ($_SERVER["REQUEST_METHOD"]) {
       //           echo "Error";
       //         }
       //         break;
+      // case 'createNewAccount':
+      //   $username = $_POST['username'];
+      //   $name = $_POST['name'];
+      //   $email = $_POST['email'];
+      //   $phone = $_POST['phone'];
+      //   $role = $_POST['role'];
+      //   $password = $_POST['password'];
+      //   $address = $_POST['address'];
+      //   $typeUser = ($role == 1) ? "KH" : "NV";
+      //   $trangThai = 1; // Giá trị mặc định bạn muốn
+
+      //   // Câu lệnh 1 - Thêm TrangThai vào cả danh sách cột và giá trị
+      //   $sql1 = "INSERT INTO nguoidung (maNguoiDung, hoTen, SDT, diaChi, email, TrangThai, loainguoidung) 
+      //      VALUES (?, ?, ?, ?, ?, ?, ?)";
+      //   $params1 = [$username, $name, $phone, $address, $email, $trangThai, $typeUser];
+      //   $result1 = $dp->excuteQuery($sql1, $params1);
+
+      //   // Câu lệnh 2 - Thêm TrangThai vào cả danh sách cột và giá trị
+      //   $sql2 = "INSERT INTO taikhoan (username, ngayTao, TrangThai, matKhau, vaiTro) 
+      //      VALUES (?, ?, ?, ?, ?)";
+      //   $params2 = [$username, (new Datetime())->format('Y-m-d'), $trangThai, $password, $role];
+      //   $result2 = $dp->excuteQuery($sql2, $params2);
+
+      //   if ($result1 && $result2) {
+      //     echo "Success";
+      //   } else {
+      //     echo "Error";
+      //   }
+      //   break;
+
       case 'createNewAccount':
         $username = $_POST['username'];
         $name = $_POST['name'];
@@ -123,17 +153,17 @@ switch ($_SERVER["REQUEST_METHOD"]) {
         $typeUser = ($role == 1) ? "KH" : "NV";
         $trangThai = 1; // Giá trị mặc định bạn muốn
 
+        $hashedPassword = md5($password);
+
         // Câu lệnh 1 - Thêm TrangThai vào cả danh sách cột và giá trị
         $sql1 = "INSERT INTO nguoidung (maNguoiDung, hoTen, SDT, diaChi, email, TrangThai, loainguoidung) 
-           VALUES (?, ?, ?, ?, ?, ?, ?)";
-        $params1 = [$username, $name, $phone, $address, $email, $trangThai, $typeUser];
-        $result1 = $dp->excuteQuery($sql1, $params1);
+             VALUES ('$username', '$name', '$phone', '$address', '$email', $trangThai, '$typeUser')";
+        $result1 = $dp->excuteQuery($sql1);
 
         // Câu lệnh 2 - Thêm TrangThai vào cả danh sách cột và giá trị
         $sql2 = "INSERT INTO taikhoan (username, ngayTao, TrangThai, matKhau, vaiTro) 
-           VALUES (?, ?, ?, ?, ?)";
-        $params2 = [$username, (new Datetime())->format('Y-m-d'), $trangThai, $password, $role];
-        $result2 = $dp->excuteQuery($sql2, $params2);
+             VALUES ('$username', '" . (new Datetime())->format('Y-m-d') . "', $trangThai, '$hashedPassword', $role)";
+        $result2 = $dp->excuteQuery($sql2);
 
         if ($result1 && $result2) {
           echo "Success";
@@ -162,7 +192,7 @@ switch ($_SERVER["REQUEST_METHOD"]) {
         //         SET matKhau='" . $password . "'
         //         WHERE username='" . $_SESSION['userID'] . "'";
         // $result2 = $dp->excuteQuery($sql2);
-        if ($result1 ) {
+        if ($result1) {
           echo "Success";
         } else {
           echo "Error";

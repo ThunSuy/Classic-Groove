@@ -69,6 +69,7 @@ function closeDetailAccount() {
 function closeNewAccount() {
   let newAccount = document.querySelector("#new-account");
   newAccount.style.display = "none";
+  loadPageByAjax("Account");
 }
 
 // Distributor page
