@@ -1,0 +1,261 @@
+#notice {
+  position: fixed;
+  top: 7vh;
+  right: calc(0px + 3vw);
+  z-index: 10;
+}
+#notice .container {
+  width: 23vw;
+  position: relative;
+  margin-bottom: 10px;
+  background-color: var(--ora);
+  border-radius: 0 0 15px 15px;
+  padding: 15px 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: var(--whi);
+  font-size: 20px;
+  animation: popup;
+  animation-duration: 0s;
+  font-family: "Dosis", sans-serif;
+  /* display: none; */
+}
+#notice .slide {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 3px;
+  width: 100%;
+  background-color: var(--whi);
+}
+#notice .fade {
+  animation: fade;
+  animation-duration: 0.8s;
+}
+#notice .slide {
+  animation: slide;
+  animation-duration: 2.6s;
+  animation-delay: 0.8s;
+}
+
+#notice .cart-adding,
+#notice .favor-adding,
+#notice .favor-removing,
+#notice .cart-removing,
+#notice .order-removing {
+  /* display: none; */
+}
+
+#notice .cart-adding i,
+#notice .favor-adding i,
+#notice .favor-removing i,
+#notice .cart-removing i,
+#notice .order-removing i {
+  font-size: 25px;
+  margin-right: 5px;
+}
+
+@keyframes popup {
+  from {
+    transform: translateY(-10px);
+    opacity: 0;
+  }
+
+  to {
+    transform: translateY(0px);
+    opacity: 1;
+  }
+}
+@keyframes fade {
+  from {
+    opacity: 1;
+    transform: translateX(0px) translateY(0px);
+  }
+  to {
+    opacity: 0;
+    transform: translateX(100%) translateY(0px);
+  }
+}
+
+@keyframes slide {
+  from {
+    width: 100%;
+  }
+
+  to {
+    width: 0;
+  }
+}
+
+
+:root {
+  --ora: #f2623e;
+  --whi: #ffffff;
+  --bla: #000000;
+  --lig: #1d1d20;
+  --gr1: #a1a0a0;
+  --gr2: #e9e9e9;
+}
+
+#header {
+  user-select: none;
+}
+
+#header .bottom {
+  
+}
+
+#header .logo-placeholder {
+  width: 100%;
+  box-sizing: border-box;
+  position: relative;
+  margin-bottom: 10%;
+}
+
+
+#header .tab-icon {
+  height: 100%;
+  width: 30%;
+  box-sizing: border-box;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  /* ; */
+}
+
+#header .tab-icon i {
+  color: var(--gr1);
+  justify-content: center;
+  align-items: center;
+}
+
+#header .tab-info {
+  height: 100%;
+  width: 60%;
+  box-sizing: border-box;
+  color: var(--gr1);
+  display: flex;
+  align-items: center;
+  justify-content: left;
+  /* ; */
+  font-family: "Dosis", sans-serif;
+}
+
+#header .tab-title:hover .tab-icon i,
+#header .tab-title:hover .tab-info {
+  color: #fff;
+  transition: color 0.2s ease-in-out;
+}
+
+#header .tab-title.active .tab-icon i,
+#header .tab-title.active .tab-info {
+  color: var(--ora);
+}
+
+
+#header .tab-notice {
+  position: absolute;
+  padding: 7% 5%;
+  right: calc(-90%);
+  color: var(--whi);
+  border-radius: 10px;
+  background-color: var(--ora);
+  width: 240px;
+  font-size: 125%;
+  top: -30%;
+  display: none;
+  left: 120%;
+}
+
+#header .tab-notice::before {
+  content: "";
+  background-color: var(--ora);
+  position: absolute;
+  top: 0px;
+  left: -3px;
+  width: 15px;
+  height: 15px;
+  transform: rotate(45deg);
+  z-index: -1;
+}
+
+#header .tab-notice-headline {
+  padding-top: 1%;
+  margin-bottom: 2%;
+}
+
+#header .tab-notice-info {
+  font-size: 70%;
+}
+
+#header .tab-notice .button-placeholder {
+  display: flex;
+  justify-content: right;
+  height: auto;
+}
+
+#header .tab-notice input {
+  color: var(--gr1);
+  background-color: var(--ora);
+  font-size: 80%;
+  padding: 7px 15px;
+  cursor: pointer;
+  font-family: "Dosis", sans-serif;
+  border-radius: 10px;
+  border: none;
+  margin: 1%;
+}
+
+#header .tab-notice .button-placeholder input:nth-child(2) {
+  background-color: var(--whi);
+  color: var(--ora);
+}
+
+#header .tab-notice .button-placeholder input:nth-child(2):hover {
+  transform: scale(105%);
+}
+
+#header .tab-notice .button-placeholder input:nth-child(1):hover {
+  color: var(--whi);
+}
+
+#header .tab-notice .button-placeholder input:nth-child(2):active,
+#header .tab-notice .button-placeholder input:nth-child(1):active {
+  transform: translateY(2px);
+  transition: 0.3s;
+}
+
+
+
+
+@media screen and (max-width: 1000px) {
+  #header .logo-placeholder {
+    background-image: url("views/assets/img/Logo.png");
+  }
+
+  #header .tab-icon {
+    font-size: 20px;
+    width: 100%;
+  }
+
+  #header .tab-info {
+    display: none;
+  }
+
+  #header .tab-title {
+    background-color: var(--lig);
+    border-radius: 10px;
+    margin: 10% auto;
+    padding: 20px 10px;
+  }
+
+  #header .bottom .button-placeholder {
+    flex-direction: column;
+    row-gap: 10px;
+  }
+  #header .tab-notice{
+    left: 240%;
+    padding: 10px;
+  }
+}
