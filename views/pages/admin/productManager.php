@@ -197,6 +197,7 @@ function searchAlbum($name, $category, $priceStart, $priceEnd, $orderBy)
     $sql = $sql . "and ";
     if ($name != "") {
       $sql = $sql . "(tenAlbum LIKE '%" . $name . "%' ";
+      $sql = $sql . " or tacGia LIKE '%" . $name . "%' ";
       $sql = $sql . " or maAlbum LIKE '%" . $name . "%') ";
       $f = true;
     }

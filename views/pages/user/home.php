@@ -103,7 +103,8 @@ function getAlbums($name, $category, $priceStart, $priceEnd)
   if ($name != "" || $category != 0 || $priceStart != "" && $priceEnd != "") {
     $sql = $sql . "and ";
     if ($name != "") {
-      $sql = $sql . "tenAlbum LIKE '%" . $name . "%' ";
+      $sql = $sql . "(tenAlbum LIKE '%" . $name . "%' ";
+      $sql = $sql . " or tacGia LIKE '%" . $name . "%' )";
       $f = true;
     }
     if ($category != 0) {
