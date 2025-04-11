@@ -41,7 +41,7 @@ $role = getListRole();
             </div>
             <div class="modal-item">
                 <div class="item-header">Status</div>
-                <div class="item-input"><input type="text" style="cursor:default !important" value="Hoạt động" disabled>
+                <div class="item-input"><input type="text" style="cursor:default !important" value="Active" disabled>
                 </div>
             </div>
             <div class="modal-item">
