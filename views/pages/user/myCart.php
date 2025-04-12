@@ -164,7 +164,7 @@ function isCartEmpty($album)
                 <div class="price-kind">Subtotal:</div>
                 <div class="price-detail subtotal">$0.00</div>
                 <div class="price-kind">Shipping:</div>
-                <div class="price-detail shipping">$0.00</div>
+                <div class="price-detail shipping">Free Ship</div>
                 <div class="price-kind">Discount:</div>
                 <div class="price-detail discount">$0.00</div>
             </div>

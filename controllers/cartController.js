@@ -119,13 +119,13 @@ const summary = () => {
   subTotalFormat = "$" + (Math.round(subTotal * 100) / 100).toFixed(2);
   shipPrice = albums.length * 5;
   shipPriceFormat = "$" + (Math.round(shipPrice * 100) / 100).toFixed(2);
-  total = subTotal + shipPrice;
+  total = subTotal;
   totalFormat = "$" + (Math.round(total * 100) / 100).toFixed(2);
   let subtotalInput = document.querySelector(".subtotal");
-  let shippingInput = document.querySelector(".shipping");
+  // let shippingInput = document.querySelector(".shipping");
   let totalInput = document.querySelector(".total-final");
   subtotalInput.innerHTML = subTotalFormat;
-  shippingInput.innerHTML = shipPriceFormat;
+  // shippingInput.innerHTML = shipPriceFormat;
   totalInput.innerHTML = totalFormat;
 };
 
