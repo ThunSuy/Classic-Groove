@@ -55,6 +55,12 @@
   border-radius: 25px;
   padding-left: 10px;
 }
+
+#search .search-container {
+  margin-left: 120px;
+  margin-right: 50px;
+}
+
 #search .price input {
   width: 70%;
   padding: 0;

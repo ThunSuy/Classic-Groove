@@ -17,7 +17,7 @@ if ($result->num_rows > 0) {
     <input type="text" id="search-btn" placeholder="What do you want to listen or buy?" onchange="loadHomeByAjax(1)">
   </div>
 </div>
-<div class="drop-menu-container">
+<!-- <div class="drop-menu-container">
 
   <div class="drop-menu">
     <i class="fa-sharp fa-regular fa-bars-filter"></i>
@@ -30,7 +30,7 @@ if ($result->num_rows > 0) {
       ?>
     </select>
   </div>
-</div>
+</div> -->
 <div class="price-container">
   <div class="price-begin">
     <i class="fa-thin fa-coin"></i>

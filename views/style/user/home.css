@@ -1,6 +1,46 @@
 #home {
-  padding-bottom: 120px;
+  padding-bottom: 100px;
 }
+
+#home .header-category{
+  background-color:black;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 9vh;
+  font-family: "Dosis", sans-serif;
+  font-size: 24px;
+  position: sticky;
+  top:48px; /* Khoảng cách từ đầu viewport */
+  z-index: 1; /* Đảm bảo nó nằm trên các phần tử khác */
+  padding-left: 150px;
+  padding-right: 190px;
+  margin: 0px 85px 0 30px;
+  border-radius: 0px 0px 20px 20px;
+}
+
+/* #home .header-category .category-item {
+  cursor: pointer;
+  padding: 10px 15px;
+  margin: 5px;
+  border: 1px solid var(--gr2);
+  border-radius: 5px;
+  background-color: var(--whi);
+  color: var(--bla);
+  transition: background-color 0.3s, color 0.3s;
+} */
+
+#home.header-category .category-item:hover {
+  background-color: var(--ora);
+  color: var(--whi);
+}
+
+#home .header-category .category-item.active {
+  /* background-color: var(--ora); */
+  color: var(--ora);
+  font-weight: bold;
+}
+
 
 #home .slideshow {
   display: flex;

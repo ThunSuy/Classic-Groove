@@ -1,10 +1,10 @@
 <div class="background">
   <div class="top">
-    <div class="logo-placeholder">
+    <div class="logo-placeholder" onclick= "resetHomePage()">
       <img src="views/assets/img/Logo.png" alt="logo">
     </div>
     <div class="top-menu">
-      <div class="tab-title active" onclick="loadHomeByAjax(1),selectMenu(this,'home')">
+      <div class="tab-title active" onclick="selectMenu(this,'home'),resetHomePage()">
         <div class="tab-icon">
           <i class="fa-solid fa-house "></i>
         </div>

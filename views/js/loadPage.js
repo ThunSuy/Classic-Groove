@@ -41,9 +41,32 @@ const loadPageByAjax = async (pageTarget) => {
   });
 };
 
+const filterByCategory = (category) => {
+  // Xóa trạng thái "active" khỏi tất cả các mục
+  document
+    .querySelectorAll(".header-category .category-item")
+    .forEach((item) => {
+      item.classList.remove("active");
+    });
+
+  // Đặt trạng thái "active" cho mục được chọn
+  const selectedItem = document.querySelector(
+    `.header-category .category-item[data-value="${category}"]`
+  );
+  if (selectedItem) selectedItem.classList.add("active");
+
+  // Gọi hàm loadHomeByAjax để tải dữ liệu
+  loadHomeByAjax(1);
+};
+
 const loadHomeByAjax = (currentPage) => {
   let name = document.querySelector("#search #search-btn").value;
-  let category = document.querySelector("#search #drop-menu-btn").value;
+  let selectedCategory = document.querySelector(
+    ".header-category .category-item.active"
+  );
+  let category = selectedCategory
+    ? selectedCategory.getAttribute("data-value")
+    : 0;
   let priceStartInput = document.querySelector("#search .price-begin input");
   let priceEndInput = document.querySelector("#search .price-end input");
   if (priceStartInput.value != "" && isNaN(priceStartInput.value)) {
@@ -116,6 +139,46 @@ const loadHomeByAjax = (currentPage) => {
     },
   });
 };
+
+const resetHomePage = () => {
+  // Gửi yêu cầu AJAX để tải lại trang home với bộ lọc mặc định
+  $.ajax({
+    url: "views/pages/user/home.php",
+    type: "POST",
+    data: {
+      name: "", // Tên tìm kiếm mặc định
+      category: 0, // Danh mục mặc định là "ALL"
+      priceStart: "", // Giá bắt đầu mặc định
+      priceEnd: "", // Giá kết thúc mặc định
+      currentPage: 1, // Trang đầu tiên
+    },
+    dataType: "html",
+    success: function (data) {
+      document.querySelector("#content").innerHTML = data;
+
+      // Làm sạch giao diện tìm kiếm
+      document.querySelector("#search-btn").value = ""; // Xóa tên tìm kiếm
+      document.querySelector(".price-begin input").value = ""; // Xóa giá bắt đầu
+      document.querySelector(".price-end input").value = ""; // Xóa giá kết thúc
+
+
+      // Đặt trạng thái "active" cho danh mục "ALL"
+      document
+        .querySelectorAll(".header-category .category-item")
+        .forEach((item) => {
+          item.classList.remove("active");
+        });
+      const allCategory = document.querySelector(
+        ".header-category .category-item[data-value='0']"
+      );
+      if (allCategory) allCategory.classList.add("active");
+    },
+    error: function () {
+      console.error("Failed to reset the home page.");
+    },
+  });
+};
+
 const loadAlbumByAjax = (currentPage = 1) => {
   let name = document.querySelector(".search-bar .search-input input").value;
   let category = document.querySelector(
@@ -260,7 +323,7 @@ function suggestAddress(query) {
     document.getElementById("addressSuggestions").style.display = "none";
     return;
   }
-  
+
   document
     .getElementById("searchAddress")
     .addEventListener("input", function () {
@@ -289,7 +352,7 @@ function suggestAddress(query) {
 }
 
 function formatDateToMySQL(date) {
-  const [day, month, year] = date.split('/');
+  const [day, month, year] = date.split("/");
   return `${year}-${month}-${day}`;
 }
 
@@ -299,11 +362,11 @@ function handleDateChange(inputId) {
 
   // Kiểm tra định dạng ngày hợp lệ (dd/MM/yyyy)
   if (/^\d{2}\/\d{2}\/\d{4}$/.test(dateValue)) {
-      const formattedDate = formatDateToMySQL(dateValue);
-      console.log(`Formatted Date (${inputId}):`, formattedDate);
-      loadOrderByAjax(1); // Gọi hàm tải lại dữ liệu
+    const formattedDate = formatDateToMySQL(dateValue);
+    console.log(`Formatted Date (${inputId}):`, formattedDate);
+    loadOrderByAjax(1); // Gọi hàm tải lại dữ liệu
   } else {
-      alert("Invalid date format. Please use dd/MM/yyyy.");
+    alert("Invalid date format. Please use dd/MM/yyyy.");
   }
 }
 

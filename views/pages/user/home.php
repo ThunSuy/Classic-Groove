@@ -3,10 +3,20 @@ require("../../../util/dataProvider.php");
 require("../../../util/pagination.php");
 $dp = new DataProvider();
 
-$name = $_POST['name'];
-$category = $_POST['category'];
-$priceStart = $_POST['priceStart'];
-$priceEnd = $_POST['priceEnd'];
+$priceRange = getPriceRange();
+$priceStart = isset($_POST['priceStart']) && $_POST['priceStart'] !== "" ? $_POST['priceStart'] : $priceRange['minPrice'];
+$priceEnd = isset($_POST['priceEnd']) && $_POST['priceEnd'] !== "" ? $_POST['priceEnd'] : $priceRange['maxPrice'];
+$name = isset($_POST['name']) ? $_POST['name'] : "";
+$category = isset($_POST['category']) ? $_POST['category'] : 0;
+$currentPage = isset($_POST['currentPage']) ? $_POST['currentPage'] : 1;
+
+// $priceRange = getPriceRange();
+// $priceStart = isset($_POST['priceStart']) && $_POST['priceStart'] !== "" ? $_POST['priceStart'] : $priceRange['minPrice'];
+// $priceEnd = isset($_POST['priceEnd']) && $_POST['priceEnd'] !== "" ? $_POST['priceEnd'] : $priceRange['maxPrice'];
+// $name = $_POST['name'];
+// $category = $_POST['category'];
+// $priceStart = $_POST['priceStart'];
+// $priceEnd = $_POST['priceEnd'];
 $currentPage = $_POST['currentPage'];
 $album = getAlbums($name, $category, $priceStart, $priceEnd);
 // for ($j = 1; $j < 3; $j++) {
@@ -21,6 +31,16 @@ $slides = getAllSlide();
 ?>
 
 <div id="home">
+  <div class="header-category">
+    <div class="category-item <?= $category == 0 ? 'active' : '' ?>" data-value="0" onclick="filterByCategory(0)">ALL</div>
+    <div class="category-item <?= $category == 1 ? 'active' : '' ?>" data-value="1" onclick="filterByCategory(1)">BLUES</div>
+    <div class="category-item <?= $category == 2 ? 'active' : '' ?>" data-value="2" onclick="filterByCategory(2)">ACOUSTIC</div>
+    <div class="category-item <?= $category == 3 ? 'active' : '' ?>" data-value="3" onclick="filterByCategory(3)">CLASSICAL</div>
+    <div class="category-item <?= $category == 4 ? 'active' : '' ?>" data-value="4" onclick="filterByCategory(4)">COUNTRY</div>
+    <div class="category-item <?= $category == 5 ? 'active' : '' ?>" data-value="5" onclick="filterByCategory(5)">ELECTRONIC</div>
+    <div class="category-item <?= $category == 6 ? 'active' : '' ?>" data-value="6" onclick="filterByCategory(6)">JAZZ</div>
+    <div class="category-item <?= $category == 7 ? 'active' : '' ?>" data-value="7" onclick="filterByCategory(7)">POP/ROCK</div>
+  </div>
   <div class="slideshow">
     <div class="left">
       <div class="poster">
@@ -144,5 +164,13 @@ function getAllSlide()
     }
   }
   return $slides;
+}
+function getPriceRange()
+{
+  global $dp;
+  $sql = "SELECT MIN(gia) AS minPrice, MAX(gia) AS maxPrice FROM album WHERE trangThai = 1";
+  $result = $dp->excuteQuery($sql);
+  $priceRange = $result->fetch_assoc();
+  return $priceRange;
 }
 ?>
