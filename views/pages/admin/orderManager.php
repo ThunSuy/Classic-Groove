@@ -100,7 +100,7 @@ $pagination = new Pagination($order, $quantityPerPage, $currentPage);
     </div>
     <div class="list">
         <?php for ($i = $pagination->startProduct(); $i <= $pagination->endProduct(); $i++): ?>
-            <div class="placeholder">
+            <div class="placeholder" data-id="<?= $order[$i]['maHoaDon'] ?>">
                 <div class="info">
                     <div class="item">
                         <?= sprintf("%02d", $i + 1) ?>
@@ -122,10 +122,10 @@ $pagination = new Pagination($order, $quantityPerPage, $currentPage);
                             <?= $order[$i]['hinhThucNhanHang'] ?>
                         </div>
                     </div>
-                    <div class="item">
+                    <div class="item" data-field="status">
                         <?= $order[$i]['trangThai'] ?>
                     </div>
-                    <div class="item" onclick="loadModalBoxByAjax('detailOrder',<?= $order[$i]['maHoaDon'] ?>)"><i
+                    <div class="item" onclick="loadModalBoxByAjax('editOrder',<?= $order[$i]['maHoaDon'] ?>)"><i
                             class="fa-regular fa-circle-info"></i></div>
                 </div>
             </div>

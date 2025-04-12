@@ -29,6 +29,19 @@ switch ($_SERVER["REQUEST_METHOD"]) {
           echo "Error";
         }
         break;
+      case 'getOrderInfo':
+        $orderID = $_GET['orderID'];
+        $sql = "SELECT hoadon.*, nguoidung.SDT as phone
+            FROM hoadon
+            JOIN nguoidung ON hoadon.khachHang = nguoidung.maNguoiDung
+            WHERE hoadon.maHoaDon = " . $orderID;
+        $result = $dp->excuteQuery($sql)->fetch_assoc();
+        if ($result) {
+          echo json_encode($result);
+        } else {
+          echo "Error";
+        }
+        break;
     }
     break;
 

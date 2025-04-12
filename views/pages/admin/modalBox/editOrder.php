@@ -111,7 +111,7 @@ $detailOrder = getDetailOrder($orderID);
             <div class="title-list ">
                 <div class="title-placeholder">
                     <div class="title" style="padding-right: 10px;">No.</div>
-                    <div class="title" style="padding-right: 15px;">Album ID</div>
+                    <div class="title" style="padding-right: 15px;">AID</div>
                     <div class="title" style="padding-right: 15px;">Album name</div>
                     <div class="title" style="padding-right: 10px;">Quantity</div>
                     <div class="title" style="padding-right: 10px;">Price</div>
@@ -150,7 +150,7 @@ $detailOrder = getDetailOrder($orderID);
                     <div class="icon-placeholder"><i class="fa-solid fa-pen-to-square"></i></div>
                     <div class="info-placeholder">Save</div>
                 </div>
-                <div class="back-button" onclick="loadModalBoxByAjax('detailOrder',<?= $orderID ?>)">
+                <div class="back-button" onclick="closeEditorder()">
                     <div class="icon-placeholder"><i class="fa-solid fa-angle-left"></i></div>
                     <div class="info-placeholder">Cancel</div>
                 </div>

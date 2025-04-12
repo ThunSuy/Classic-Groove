@@ -220,6 +220,14 @@ switch ($_SERVER["REQUEST_METHOD"]) {
                 $sql1 = "DELETE FROM baihat_album WHERE Album_maAlbum = " . $albumID;
                 $dp->excuteQuery($sql1); // Không cần kiểm tra vì có thể không có bài hát nào
 
+                // Xóa khỏi bảng `yeuthich` trước
+                $sql3 = "DELETE FROM yeuthich WHERE album = " . $albumID;
+                $dp->excuteQuery($sql3);
+
+                // Xóa khỏi bảng `giohang` trước
+                $sql3 = "DELETE FROM giohang WHERE maAlbum = " . $albumID;
+                $dp->excuteQuery($sql3);
+
                 // Xóa khỏi bảng album
                 $sql2 = "DELETE FROM album WHERE maAlbum = " . $albumID;
                 $result = $dp->excuteQuery($sql2);

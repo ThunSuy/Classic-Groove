@@ -138,18 +138,19 @@ const updateAlbumInfo = (
       "&action=updateAlbumInfo",
     type: "PUT",
     success: function (res) {
-      console.log(albumID,
+      console.log(
+        albumID,
         albumName,
         albumKind,
         albumArtist,
         albumPrice,
         albumImage,
         albumDescribe,
-        albumStatus);
-      console.log(res)
+        albumStatus
+      );
+      console.log(res);
       loadPageByAjax("Album");
-    }
-   
+    },
   });
 };
 const deleteAlbum = (albumID) => {
@@ -174,11 +175,11 @@ const deleteAlbum = (albumID) => {
   //       );
   //   },
   // });
-  // $.ajax({
-    // url: "util/albums.php?albumID=" + albumID + "&action=checkAlbumUsed",
-    // type: "GET",
-    // success: function (res) {
-    //   if (res === "used") {
+  $.ajax({
+    url: "util/albums.php?albumID=" + albumID + "&action=checkAlbumUsed",
+    type: "GET",
+    success: function (res) {
+      if (res === "used") {
         // Nếu album đã được dùng => gửi PUT request để ẩn (không xóa thật)
         // $.ajax({
         //   url: "util/albums.php?albumID=" + albumID + "&action=softDeleteAlbum",
@@ -206,32 +207,31 @@ const deleteAlbum = (albumID) => {
               );
           },
         });
+      } else {
+        // Nếu album chưa từng được dùng => xóa thật
+        $.ajax({
+          url: "util/albums.php?albumID=" + albumID + "&action=deleteAlbum",
+          type: "DELETE",
+          success: function (res) {
+            if (res == "Success") {
+              customNotice(
+                "fa-sharp fa-light fa-circle-check",
+                "Deleted successfully.",
+                1
+              );
+              loadPageByAjax("Album");
+            } else
+              customNotice(
+                "fa-sharp fa-light fa-circle-exclamation",
+                "Deleted failed.",
+                3
+              );
+          },
+        });
       }
-    //    else {
-    //     // Nếu album chưa từng được dùng => xóa thật
-    //     $.ajax({
-    //       url: "util/albums.php?albumID=" + albumID + "&action=deleteAlbum",
-    //       type: "DELETE",
-    //       success: function (res) {
-    //         if (res == "Success") {
-    //           customNotice(
-    //             "fa-sharp fa-light fa-circle-check",
-    //             "Deleted successfully.",
-    //             1
-    //           );
-    //           loadPageByAjax("Album");
-    //         } else
-    //           customNotice(
-    //             "fa-sharp fa-light fa-circle-exclamation",
-    //             "Deleted failed.",
-    //             3
-    //           );
-    //       },
-    //     });
-    //   }
-    // },
-  // });
-// };
+    },
+  });
+};
 
 const uploadImg = () => {
   let fileInput = document.createElement("input");
