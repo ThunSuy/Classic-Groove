@@ -189,7 +189,7 @@ function isCartEmpty($album)
                 <div class="modal-info">Thank you for buying our albums</div>
             </div>
             <div class="modal-button-placeholder">
-                <div class="home-button" onclick="loadHomeByAjax(1)">
+                <div class="home-button" onclick="selectMenu(this,'home'), resetHomePage()">
                     <div class="button-item">
                         <i class="fa-solid fa-house "></i>
                     </div>

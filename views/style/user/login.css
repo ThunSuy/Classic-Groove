@@ -31,11 +31,18 @@
   right: 0;
   justify-content: center;
   align-items: center;
-  height: 65vh;
+  height: 80vh;
   width: 65vw;
   border-radius: 20px;
   margin: auto;
   position: relative;
+}
+
+.error-message {
+  color: red;
+  font-size: 12px;
+  margin-top: 5px;
+  display: block;
 }
 
 #login .left,

@@ -66,12 +66,10 @@ const updateOrder = () => {
           "Order updated successfully!",
           1
         );
-
-        // Gọi hàm đóng modal
-        // closeEditOrder();
-
+        loadModalBoxByAjax('editOrder',orderID);
         // Tải lại dữ liệu bảng hoặc thông tin order vừa cập nhật
         loadUpdatedOrder(orderID);
+        
       } else {
         customNotice(
           "fa-sharp fa-light fa-circle-exclamation",

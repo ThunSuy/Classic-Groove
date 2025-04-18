@@ -1,6 +1,6 @@
 <div class="background">
   <div class="top">
-    <div class="logo-placeholder" onclick= "resetHomePage()">
+    <div class="logo-placeholder" onclick= "selectMenu(this,'home'),resetHomePage()">
       <img src="views/assets/img/Logo.png" alt="logo">
     </div>
     <div class="top-menu">

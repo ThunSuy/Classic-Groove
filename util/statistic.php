@@ -119,7 +119,7 @@ switch ($_SERVER["REQUEST_METHOD"]) {
                 $dateEnd = $_GET['dateEnd'];
                 $limit = $_GET['limit'];
 
-                $sql = "SELECT nguoidung.hoTen AS tenKhachHang, SUM(hoadon.tongTien) AS tongDoanhThu
+                $sql = "SELECT nguoidung.maNguoiDung AS tenKhachHang, SUM(hoadon.tongTien) AS tongDoanhThu
                             FROM hoadon
                             JOIN nguoidung ON hoadon.khachHang = nguoidung.maNguoiDung
                             WHERE hoadon.trangThai = 'Successful'

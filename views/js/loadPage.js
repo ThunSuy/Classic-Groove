@@ -32,9 +32,9 @@ const loadPageByAjax = async (pageTarget) => {
       document.querySelector("#content").innerHTML = data;
       if (pageTarget == "myAccount") setUserInfo();
       if (pageTarget == "Statistic") {
-        statistic1();
-        statistic2();
-        statistic3();
+        // statistic1();
+        // statistic2();
+        // statistic3();
         statistic4();
       }
     },
@@ -129,6 +129,10 @@ const loadHomeByAjax = (currentPage) => {
     dataType: "html",
     success: function (data) {
       document.querySelector("#content").innerHTML = data;
+      const searchBar = document.querySelector("#search-bar");
+      if (searchBar) {
+        searchBar.style.display = "block"; // Hiển thị thanh tìm kiếm
+      }
 
       const tabs = document.querySelectorAll("#header .tab-title");
       tabs.forEach((tab) => tab.classList.remove("active")); // Xóa trạng thái "active" khỏi tất cả các nút
@@ -160,7 +164,6 @@ const resetHomePage = () => {
       document.querySelector("#search-btn").value = ""; // Xóa tên tìm kiếm
       document.querySelector(".price-begin input").value = ""; // Xóa giá bắt đầu
       document.querySelector(".price-end input").value = ""; // Xóa giá kết thúc
-
 
       // Đặt trạng thái "active" cho danh mục "ALL"
       document
@@ -473,6 +476,7 @@ const removeColorTab = () => {
   let tabActive = document.querySelector("#header .tab-title.active");
   if (tabActive != null) tabActive.classList.remove("active");
 };
+
 const selectMenu = async (selectedTab, pageTarget) => {
   hideTabNotice();
   let loginPage = document.querySelector("#login");
@@ -492,6 +496,11 @@ const selectMenu = async (selectedTab, pageTarget) => {
     } else {
       searchContainer.style.display = "none"; // Ẩn thanh tìm kiếm
     }
+  }
+  
+  const homeTab = document.querySelector("#header .tab-title[onclick*='home']");
+  if (pageTarget === "home" && homeTab) {
+    homeTab.classList.add("active"); // Đặt trạng thái "active" cho tab Home
   }
 
   if (pageTarget == "home") return;

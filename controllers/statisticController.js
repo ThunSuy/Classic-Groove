@@ -436,11 +436,14 @@ const statistic4 = async () => {
     );
     return;
   }
+  const orderList = document.querySelector("#orderManager .list");
+  orderList.innerHTML = ""; // Xóa nội dung cũ
 
   let data = JSON.parse(await getTopCustomers(dateStart, dateEnd, limit));
 
   let categories = data.map((obj) => obj.tenKhachHang);
   let revenueData = data.map((obj) => parseFloat(obj.tongDoanhThu));
+  let userIDs = data.map((obj) => obj.tenKhachHang); // Lấy ID người dùng
 
   let title =
     "Top " +
@@ -477,10 +480,28 @@ const statistic4 = async () => {
     tooltip: {
       valuePrefix: "$",
     },
+    // plotOptions: {
+    //   bar: {
+    //     dataLabels: {
+    //       enabled: true,
+    //     },
+    //   },
+    // },
     plotOptions: {
       bar: {
         dataLabels: {
           enabled: true,
+        },
+        cursor: "pointer",
+        point: {
+          events: {
+            click: function () {
+              // Lấy ID người dùng từ userIDs
+              const userID = userIDs[this.index];
+              console.log("Clicked user ID:", userID);
+              loadOrdersByUser(userID, dateStart, dateEnd); // Gọi hàm với khoảng thời gian
+            },
+          },
         },
       },
     },
@@ -495,6 +516,99 @@ const statistic4 = async () => {
     ],
   });
 };
+const loadOrdersByUser = (userID, dateStart, dateEnd) => {
+  $.ajax({
+    url: `util/order.php?action=getOrdersByUser&userID=${userID}&dateStart=${dateStart}&dateEnd=${dateEnd}`,
+    type: "GET",
+    dataType: "json",
+    success: function (orders) {
+      const orderList = document.querySelector("#orderManager .list");
+      orderList.innerHTML = ""; // Xóa nội dung cũ
+
+      if (orders.length > 0) {
+        orders.forEach((order, index) => {
+          const date = new Date(order.thoiGianDat);
+          const formattedDate = `${date.getDate()}/${
+            date.getMonth() + 1
+          }/${date.getFullYear()} ${date.getHours()}:${date
+            .getMinutes()
+            .toString()
+            .padStart(2, "0")}`;
+
+          const orderRow = `
+            <div class="placeholder" data-id="${order.maHoaDon}">
+              <div class="info">
+                <div class="item">${index + 1}</div>
+                <div class="item">${order.maHoaDon}</div>
+                <div class="item">${order.khachHang}</div>
+                <div class="item">${formattedDate}</div>
+                <div class="item">$${order.tongTien}</div>
+                <div class="item"><div class="item">${
+                  order.hinhThucNhanHang
+                }</div></div>
+                <div class="item">${order.trangThai}</div>
+                <div class="item" onclick="loadModalBoxByAjax('detailOrder', ${
+                  order.maHoaDon
+                })">
+                  <i class="fa-regular fa-circle-info"></i>
+                </div>
+              </div>
+            </div>
+          `;
+          orderList.insertAdjacentHTML("beforeend", orderRow);
+        });
+      } else {
+        orderList.innerHTML =
+          "<div>No orders found for this user in the selected time range.</div>";
+      }
+    },
+    error: function () {
+      console.error("Failed to load orders for user.");
+    },
+  });
+};
+
+// const loadOrdersByUser = (userID,dateStart, dateEnd) => {
+//   $.ajax({
+//     url: "util/order.php?action=getOrdersByUser&userID=" + userID,
+//     type: "GET",
+//     dataType: "json",
+//     success: function (orders) {
+//       const orderList = document.querySelector("#orderManager .list");
+//       orderList.innerHTML = ""; // Xóa nội dung cũ
+
+//       if (orders.length > 0) {
+//         orders.forEach((order, index) => {
+//           const date = new Date(order.thoiGianDat);
+//           const formattedDate = `${date.getDate()}/${date.getMonth() + 1}/${date.getFullYear()} ${date.getHours()}:${date.getMinutes().toString().padStart(2, "0")}`;
+
+//           const orderRow = `
+//             <div class="placeholder" data-id="${order.maHoaDon}">
+//               <div class="info">
+//                 <div class="item">${index + 1}</div>
+//                 <div class="item">${order.maHoaDon}</div>
+//                 <div class="item">${order.khachHang}</div>
+//                 <div class="item">${formattedDate}</div>
+//                 <div class="item">$${order.tongTien}</div>
+//                 <div class="item"><div class="item">${order.hinhThucNhanHang}</div></div>
+//                 <div class="item">${order.trangThai}</div>
+//                 <div class="item" onclick="loadModalBoxByAjax('detailOrder', ${order.maHoaDon})">
+//                   <i class="fa-regular fa-circle-info"></i>
+//                 </div>
+//               </div>
+//             </div>
+//           `;
+//           orderList.insertAdjacentHTML("beforeend", orderRow);
+//         });
+//       } else {
+//         orderList.innerHTML = "<div>No orders found for this user.</div>";
+//       }
+//     },
+//     error: function () {
+//       console.error("Failed to load orders for user.");
+//     },
+//   });
+// };
 
 const statistic2 = async () => {
   let dateStart = document.querySelector("#statistic-type2 .dateStart").value;

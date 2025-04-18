@@ -9,7 +9,31 @@
             <div id="container4"></div>
         </figure>
     </div>
-    <div id="statistic-type1">
+
+    <br>
+    <h2> <i class="fa-solid fa-chart-column"></i><span>Detail</span></h2>
+    <br>
+    <br>
+    <div id="orderManager">
+    <div class="title-list">
+        <div class="title-placeholder">
+            <div class="title" style="padding-right: 10px;">No.</div>
+            <div class="title" style="padding-right: 15px;">Order ID</div>
+            <div class="title" style="padding-right: 15px;">Account ID</div>
+            <div class="title" style="padding-right: 10px;">Date of order</div>
+            <div class="title" style="padding-right: 10px;">Total price</div>
+            <div class="title" style="padding-right: 10px;">Payment</div>
+            <div class="title" style="padding-right: 10px;">Status</div>
+            <div class="title"></div>
+        </div>
+    </div>
+    <div class="list">
+        
+    </div>
+    <div id="modal-box"></div>
+</div>
+
+    <!-- <div id="statistic-type1">
         <input type="month" class="dateStart" value="<?= date("Y") . "-01" ?>">
         <input type="month" class="dateEnd" value=<?= date("Y-m") ?>>
         <select name="" id="" class="typeStatictis" onchange="changeTypeInputDate()">
@@ -48,5 +72,5 @@
         <figure class="highcharts-figure">
             <div id="container3"></div>
         </figure>
-    </div>
+    </div> -->
 </div>

@@ -42,6 +42,38 @@ switch ($_SERVER["REQUEST_METHOD"]) {
           echo "Error";
         }
         break;
+      case 'getOrdersByUser':
+        $userID = $_GET['userID'];
+        $dateStart = $_GET['dateStart'];
+        $dateEnd = $_GET['dateEnd'];
+
+        $sql = "SELECT * FROM hoadon 
+                  WHERE khachHang = '$userID' 
+                    AND trangThai = 'Successful' 
+                    AND thoiGianDat >= '$dateStart' 
+                    AND thoiGianDat <= '$dateEnd' 
+                  ORDER BY tongTien DESC";
+        $result = $dp->excuteQuery($sql);
+        $orders = array();
+        if ($result->num_rows > 0) {
+          while ($row = $result->fetch_assoc()) {
+            array_push($orders, $row);
+          }
+        }
+        echo json_encode($orders);
+        break;
+        // case 'getOrdersByUser':
+        //   $userID = $_GET['userID'];
+        //   $sql = "SELECT * FROM hoadon WHERE khachHang = '$userID' AND trangThai = 'Successful' ORDER BY tongTien DESC";
+        //   $result = $dp->excuteQuery($sql);
+        //   $orders = array();
+        //   if ($result->num_rows > 0) {
+        //     while ($row = $result->fetch_assoc()) {
+        //       array_push($orders, $row);
+        //     }
+        //   }
+        //   echo json_encode($orders);
+        //   break;
     }
     break;
 
