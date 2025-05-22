@@ -4,6 +4,9 @@ require("../../../util/pagination.php");
 $dp = new DataProvider();
 session_start();
 
+$priceRange = getPriceRange();
+$minPrice = $priceRange['minPrice'];
+$maxPrice = $priceRange['maxPrice'];
 $currentPage = isset($_POST['currentPage']) ? (int)$_POST['currentPage'] : 1;
 $quantityPerPage = 10; // Số dòng mỗi trang
 
@@ -50,7 +53,7 @@ $pagination = new Pagination($album, $quantityPerPage, $currentPage);
       </div>
       <div class="filter-input">
         <i class="fa-regular fa-filter"></i>
-        <select name="" id="" onchange="loadAlbumByAjax()">
+        <select name="" id="category-product" onchange="loadAlbumByAjax()">
           <option value="0">All</option>
           <?php
           foreach ($category as $cat) {
@@ -61,11 +64,11 @@ $pagination = new Pagination($album, $quantityPerPage, $currentPage);
       </div>
       <div class="date-begin price-begin">
         <i class="fa-thin fa-coin"></i>
-        <input type="text" name="" id="" placeholder="Start price" value="" onchange="loadAlbumByAjax()">
+        <input type="text" name="" id="priceStart-product" placeholder="Start price" value="" onchange="loadAlbumByAjax()">
       </div>
       <div class="date-end price-end">
         <i class="fa-thin fa-coins"></i>
-        <input type="text" name="" id="" placeholder="End price" value="" onchange="loadAlbumByAjax()">
+        <input type="text" name="" id="priceEnd-product" placeholder="End price" value="" onchange="loadAlbumByAjax()">
       </div>
     </div>
   </div>
@@ -85,7 +88,7 @@ $pagination = new Pagination($album, $quantityPerPage, $currentPage);
   </div>
   <div class="list">
   <?php for ($i = $pagination->startProduct(); $i <= $pagination->endProduct(); $i++): ?>
-      <div class="placeholder">
+      <div class="placeholder" data-id="<?= $album[$i]['maAlbum'] ?>">
         <div class="info">
           <div class="item">
             <?= sprintf("%02d", $i + 1) ?>
@@ -93,19 +96,19 @@ $pagination = new Pagination($album, $quantityPerPage, $currentPage);
           <div class="item">
             <?= $album[$i]['maAlbum'] ?>
           </div>
-          <div class="item">
+          <div class="item" data-field="name">
             <?= $album[$i]['tenAlbum'] ?>
           </div>
-          <div class="item">
+          <div class="item" data-field="artist">
             <?= $album[$i]['tacGia'] ?>
           </div>
-          <div class="item">
+          <div class="item" data-field="kind">
             <?= $album[$i]['tenLoai'] ?>
           </div>
-          <div class="item">
+          <div class="item" data-field="price">
             <?= $album[$i]['gia'] ?>
           </div>
-          <div class="item">
+          <div class="item" data-field="status">
             <?= $album[$i]['TrangThai'] == 1 ? 'Active' : 'Inactive' ?>
           </div>
           <div class="item" onclick="loadModalBoxByAjax('detailAlbum',<?= $album[$i]['maAlbum'] ?>)">
@@ -230,5 +233,13 @@ function searchAlbum($name, $category, $priceStart, $priceEnd, $orderBy)
     }
   }
   return $album;
+}
+function getPriceRange()
+{
+  global $dp;
+  $sql = "SELECT MIN(gia) AS minPrice, MAX(gia) AS maxPrice FROM album";
+  $result = $dp->excuteQuery($sql);
+  $priceRange = $result->fetch_assoc();
+  return $priceRange;
 }
 ?>

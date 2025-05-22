@@ -22,6 +22,8 @@ $(document).ready(async () => {
   }
 });
 
+let currentCategoryTitle = "Features"; // Tiêu đề mặc định
+
 const loadPageByAjax = async (pageTarget) => {
   $.ajax({
     url: "views/pages/user/content.php",
@@ -55,6 +57,16 @@ const filterByCategory = (category) => {
   );
   if (selectedItem) selectedItem.classList.add("active");
 
+
+  // Cập nhật tiêu đề
+  const featuresTitle = document.getElementById("features-title");
+  if (category === 0) {
+    currentCategoryTitle = "Features"; // Lưu tiêu đề mặc định
+  } else {
+    const categoryName = selectedItem.innerText;
+    currentCategoryTitle = `Features / ${categoryName}`; // Lưu tiêu đề hiện tại
+  }
+  featuresTitle.innerText = currentCategoryTitle;
   // Gọi hàm loadHomeByAjax để tải dữ liệu
   loadHomeByAjax(1);
 };
@@ -132,6 +144,12 @@ const loadHomeByAjax = (currentPage) => {
       const searchBar = document.querySelector("#search-bar");
       if (searchBar) {
         searchBar.style.display = "block"; // Hiển thị thanh tìm kiếm
+      }
+
+      // Khôi phục tiêu đề từ biến toàn cục
+      const featuresTitle = document.getElementById("features-title");
+      if (featuresTitle) {
+        featuresTitle.innerText = currentCategoryTitle;
       }
 
       const tabs = document.querySelectorAll("#header .tab-title");
@@ -497,7 +515,7 @@ const selectMenu = async (selectedTab, pageTarget) => {
       searchContainer.style.display = "none"; // Ẩn thanh tìm kiếm
     }
   }
-  
+
   const homeTab = document.querySelector("#header .tab-title[onclick*='home']");
   if (pageTarget === "home" && homeTab) {
     homeTab.classList.add("active"); // Đặt trạng thái "active" cho tab Home

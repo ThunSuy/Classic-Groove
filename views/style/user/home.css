@@ -1,8 +1,9 @@
 #home {
   padding-bottom: 100px;
 }
-
-#home .header-category{
+/* #detail-album .header-category1, */
+/* #home */
+ .header-category{
   background-color:black;
   display: flex;
   justify-content: space-between;
@@ -34,8 +35,9 @@
   background-color: var(--ora);
   color: var(--whi);
 }
-
-#home .header-category .category-item.active {
+/* #detail-album .header-category1 .category-item.active,
+#home  */
+.header-category .category-item.active {
   /* background-color: var(--ora); */
   color: var(--ora);
   font-weight: bold;

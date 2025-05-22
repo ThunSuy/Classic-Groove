@@ -68,7 +68,7 @@ $slides = getAllSlide();
       </div>
     </div>
   </div>
-  <h1>Features</h1>
+  <h1 id="features-title">Features</h1>
   <div class="grid-container">
     <?php for ($i = $pa->startProduct(); $i <= $pa->endProduct(); $i++): ?>
       <div class="grid-item" onclick="loadProductDetailsByAjax(<?= $album[$i]['maAlbum'] ?>)">

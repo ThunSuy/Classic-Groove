@@ -152,7 +152,7 @@ $detailOrder = getDetailOrder($orderID);
                 </div>
                 <div class="back-button" onclick="closeEditorder()">
                     <div class="icon-placeholder"><i class="fa-solid fa-angle-left"></i></div>
-                    <div class="info-placeholder">Cancel</div>
+                    <div class="info-placeholder">Close</div>
                 </div>
             </div>
         </div>

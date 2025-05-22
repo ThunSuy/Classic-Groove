@@ -12,6 +12,7 @@ $sql = "SELECT album.*, theloai.tenLoai
         WHERE maAlbum = " . $albumID;
 $result = $dp->excuteQuery($sql);
 $album = $result->fetch_assoc();
+$category = $album['theLoai'];
 
 //handle album's song
 $sql = "SELECT * FROM baihat_album join baihat on baihat_album.BaiHat_maBaiHat = baihat.maBaiHat
@@ -20,11 +21,22 @@ $result = $dp->excuteQuery($sql);
 $songs = array();
 if ($result->num_rows > 0) {
   while ($row = $result->fetch_assoc()) {
-    array_push($songs, $row);
+    array_push($songs, $row); 
   }
 }
 ?>
-
+<div id="detail-album">
+  <div class="header-category">
+    <div class="category-item <?= $category == 0 ? 'active' : '' ?>" data-value="0" onclick="filterByCategory(0)">ALL</div>
+    <div class="category-item <?= $category == 1 ? 'active' : '' ?>" data-value="1" onclick="filterByCategory(1)">BLUES</div>
+    <div class="category-item <?= $category == 2 ? 'active' : '' ?>" data-value="2" onclick="filterByCategory(2)">ACOUSTIC</div>
+    <div class="category-item <?= $category == 3 ? 'active' : '' ?>" data-value="3" onclick="filterByCategory(3)">CLASSICAL</div>
+    <div class="category-item <?= $category == 4 ? 'active' : '' ?>" data-value="4" onclick="filterByCategory(4)">COUNTRY</div>
+    <div class="category-item <?= $category == 5 ? 'active' : '' ?>" data-value="5" onclick="filterByCategory(5)">ELECTRONIC</div>
+    <div class="category-item <?= $category == 6 ? 'active' : '' ?>" data-value="6" onclick="filterByCategory(6)">JAZZ</div>
+    <div class="category-item <?= $category == 7 ? 'active' : '' ?>" data-value="7" onclick="filterByCategory(7)">POP/ROCK</div>
+  </div>
+</div>
 
 <div id="product-details">
   <div class="left">

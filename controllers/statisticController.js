@@ -436,6 +436,8 @@ const statistic4 = async () => {
     );
     return;
   }
+
+  dateEnd += " 23:59:59";
   const orderList = document.querySelector("#orderManager .list");
   orderList.innerHTML = ""; // Xóa nội dung cũ
 
@@ -445,13 +447,13 @@ const statistic4 = async () => {
   let revenueData = data.map((obj) => parseFloat(obj.tongDoanhThu));
   let userIDs = data.map((obj) => obj.tenKhachHang); // Lấy ID người dùng
 
-  let title =
-    "Top " +
-    limit +
-    " customers with the highest revenue from " +
-    dateStart.split("-").reverse().join("/") +
-    " to " +
-    dateEnd.split("-").reverse().join("/");
+  let title ="Top 5 customers with the highest revenue";
+    // "Top " +
+    // limit +
+    // " customers with the highest revenue from " +
+    // dateStart.split("-").reverse().join("/") +
+    // " to " +
+    // dateEnd.split("-").reverse().join("/");
 
   Highcharts.chart("container4", {
     chart: {

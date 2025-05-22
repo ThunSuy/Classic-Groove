@@ -121,7 +121,7 @@ $songs = getSong($albumID);
                 </div>
                 <div class="back-button" onclick="loadModalBoxByAjax('detailAlbum',<?= $album['maAlbum'] ?>)">
                     <div class="icon-placeholder"><i class="fa-solid fa-xmark"></i></div>
-                    <div class="info-placeholder">Cancel</div>
+                    <div class="info-placeholder">Close</div>
                 </div>
             </div>
         </div>

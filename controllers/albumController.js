@@ -138,18 +138,51 @@ const updateAlbumInfo = (
       "&action=updateAlbumInfo",
     type: "PUT",
     success: function (res) {
-      console.log(
-        albumID,
-        albumName,
-        albumKind,
-        albumArtist,
-        albumPrice,
-        albumImage,
-        albumDescribe,
-        albumStatus
+      // console.log(
+      //   albumID,
+      //   albumName,
+      //   albumKind,
+      //   albumArtist,
+      //   albumPrice,
+      //   albumImage,
+      //   albumDescribe,
+      //   albumStatus
+      // );
+      // console.log(res);
+
+      const albumKindMapping = {
+        1: "Blues",
+        2: "Acoustic",
+        3: "Classical",
+        4: "Country",
+        5: "Electronic",
+        6: "Jazz",
+        7: "Pop/Rock"
+      };
+      const albumKindName = albumKindMapping[albumKind] || "Unknown";
+      
+      // loadPageByAjax("Album");
+      const row = document.querySelector(
+        `#productManager .list .placeholder[data-id="${albumID}"]`
       );
-      console.log(res);
-      loadPageByAjax("Album");
+      if (row) {
+        // Cập nhật các cột trong dòng
+        row.querySelector(
+          "#productManager .item[data-field='name']"
+        ).innerText = albumName;
+        row.querySelector(
+          "#productManager .item[data-field='kind']"
+        ).innerText = albumKindName;
+        row.querySelector(
+          "#productManager .item[data-field='artist']"
+        ).innerText = albumArtist;
+        row.querySelector(
+          "#productManager .item[data-field='price']"
+        ).innerText = `${albumPrice}`;
+        row.querySelector(
+          "#productManager .item[data-field='status']"
+        ).innerText = albumStatus == 1 ? "Active" : "Inactive";
+      }
     },
   });
 };
@@ -573,9 +606,9 @@ const updateAlbum = async (AbID) => {
     albumStatus
   );
   await updateSongInfo(AbID);
+  loadModalBoxByAjax("detailAlbum", AbID);
   customNotice("fa-sharp fa-light fa-circle-check", "Update successfully!", 1);
   // loadPageByAjax("Album");
-  loadModalBoxByAjax("detailAlbum", AbID);
 };
 const updateSongInfo = async (AbID) => {
   let songsOld = JSON.parse(await getSongByAlbumID(AbID));
